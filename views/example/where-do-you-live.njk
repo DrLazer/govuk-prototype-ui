@@ -1,0 +1,40 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "where-do-you-live",
+    name: "where-do-you-live",
+    fieldset: {
+      legend: {
+        text: "Where do you live?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['where-do-you-live'].error,
+    items: [
+      {
+        value: "england",
+        text: "England",
+        checked: true if data["where-do-you-live"] === "yes"
+      },
+      {
+        value: "scotland",
+        text: "Scotland",
+        checked: true if data["where-do-you-live"] === "yes"
+      },
+      {
+        value: "wales",
+        text: "Wales",
+        checked: true if data["where-do-you-live"] === "yes"
+      },
+      {
+        value: "northern-ireland",
+        text: "Northern Ireland",
+        checked: true if data["where-do-you-live"] === "yes"
+      }
+    ]
+  }) }}
+{% endblock %}

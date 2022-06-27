@@ -9,6 +9,7 @@ const contextPath = process.env.CONTEXT_PATH || '/';
 const bodyParser = require('body-parser');
 const packageMeta = require('./package.json');
 
+const authenticationMiddleware = require('./middleware/authentication');
 const setVersionMiddleware = require('./middleware/versionPassthrough');
 const autoStoreDataMiddleware = require('./middleware/autoStoreData');
 const sessionMiddleware = require('./middleware/session');
@@ -35,6 +36,7 @@ nunjucksEnv.addFilter('makeArray', (value) => {
   return value;
 });
 
+app.use(authenticationMiddleware);
 app.use(contextPath, express.static(filePath.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,10 +44,7 @@ app.use(sessionMiddleware());
 app.use(autoStoreDataMiddleware);
 
 // Journey routes
-// app.use('/v2-0-0/', setVersionMiddleware('/v2-0-0/'), require('./routes/v2-0-0'));
-app.get('/hello', (req, res) => {
-  res.render('layouts/layout.njk');
-});
+app.use('/example/', setVersionMiddleware('/example/'), require('./routes/example'));
 
 // Request middleware - renders views for GET requests without controller
 app.get(/^([^.]+)$/, (req, res, next) => {

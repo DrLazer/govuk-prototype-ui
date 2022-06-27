@@ -1,35 +1,30 @@
 {
-  "name": "config-driven-prototype",
+  "name": "gov-prototype-ui",
   "version": "0.0.1",
-  "description": "",
-  "main": "app.js",
+  "private": true,
+  "engines": {
+    "node": ">=17.0.0 <18.0.0"
+  },
   "scripts": {
     "start": "node app.js",
-    "dev": "npm run compile:assets && nodemon app.js",
+    "dev": "nodemon app.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "compile:sass": "sass scss:public/css",
-    "compile:js": "mkdir -p public/js && cp node_modules/govuk-frontend/govuk/all.js public/js/govuk.js",
-    "compile:images": "mkdir -p public/assets/images && cp node_modules/govuk-frontend/govuk/assets/images/* public/assets/images",
-    "compile:fonts": "mkdir -p public/assets/fonts && cp node_modules/govuk-frontend/govuk/assets/fonts/* public/assets/fonts",
-    "compile:assets": "npm run compile:sass && npm run compile:js && npm run compile:images && npm run compile:fonts"
+    "lint:fix": "eslint . --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.0",
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "govuk-frontend": "^4.1.0",
+    "basic-auth": "^2.0.1",
+    "body-parser": "1.19.2",
+    "express": "4.17.1",
+    "express-session": "^1.17.2",
+    "govuk-frontend": "4.0.1",
     "memorystore": "^1.6.7",
-    "nunjucks": "^3.2.3",
-    "sass": "^1.52.1"
+    "nunjucks": "3.2.3",
+    "tsscmp": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^8.16.0",
+    "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "nodemon": "^2.0.16"
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
   }
 }
