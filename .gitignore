@@ -19,6 +19,3 @@ yarn-error.log*
 
 # JetBrains
 .idea/
-
-# public assets
-public/
