@@ -10,7 +10,7 @@ module.exports = {
     whereDoYouLive: 'where-do-you-live',
 
     // claim submission
-    claimSubmission: 'claim-submission',
+    submission: 'claim-submission',
     checkYourAnswers: 'check-your-answers',
 
   },

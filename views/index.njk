@@ -1,0 +1,26 @@
+{% extends "layouts/layout.njk" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Prototypes
+      </h1>
+      <div class="app-most-recent">
+        <div>
+          <span class="govuk-tag govuk-tag--turquoise">example</span>
+        </div>
+        <br/>
+        <h2 class="govuk-heading-m">A simple example service</h2>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Three questions with different input controls</li>
+          <li>Includes validation</li>
+          <li>Has a functional Check Your Answers page</li>
+          <li>Has a dummy submission page to finish</li>
+        </ul>
+        <a href="example/" class="govuk-button govuk-button--start">Start</a>
+        <p class="govuk-body govuk-!-font-size-16">Date created - 28 June 2022</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
