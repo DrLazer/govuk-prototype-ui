@@ -33,10 +33,13 @@ const handleGetRequest = (urlPath, config = null) => (req, res, next) => {
     res.locals.data['back-link'] = backLink;
   }
   res.render(path, config, (error, html) => {
+    if (error) {
+      console.log(error);
+    }
     if (!error) { 
       res.set({ 'Content-type': 'text/html; charset=utf-8' });
       res.send(html);
-    } else if (!path.endsWith('/index')) {
+    } else if (path.endsWith('/index')) {
       handleGetRequest(`${path}index`)(req, res, next);
     } else {
       next(error);

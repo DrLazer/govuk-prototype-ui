@@ -44,7 +44,6 @@ app.use(sessionMiddleware());
 app.use(autoStoreDataMiddleware);
 
 // Journey routes
-app.use('/', require('./routes/example'));
 app.use('/example/', setVersionMiddleware('/example/'), require('./routes/example'));
 
 // Request middleware - renders views for GET requests without controller

@@ -1,0 +1,558 @@
+{% from "./change-link.njk" import changeLink %}
+{% from "./reword-date.njk" import rewordDate %}
+
+{% macro checkYourAnswersDaySection(data) %}
+	<section class="Your care needs during the day">
+		<h2 class="govuk-heading-l">
+		Your care needs during the day
+		</h2>
+		<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+			<div class="govuk-summary-list__row difficulties-day">
+				<dt class="govuk-summary-list__key">
+					Activities you need help with
+				</dt>
+				<dd class="govuk-summary-list__value">
+					<ul>
+						{% for item in data['daytime-activities'] %}
+							<li>
+								{{ item 
+								| replace("daytime-bed", "Getting in and out of bed")
+								| replace("daytime-washing", "Washing yourself") 
+								| replace("daytime-dressing", "Dressing and undressing yourself")
+								| replace("daytime-moving", "Moving around indoors during the daytime") 
+								| replace("daytime-toilet", "Getting to and using the toilet")
+								| replace("daytime-eating", "Eating and drinking") 
+								| replace("daytime-medication", "Taking medication or receiving treatment")
+								| replace("daytime-hobbies", "Social hobbies and interests") 
+								| replace("daytime-medication", "Taking medication or receiving treatment")
+								| replace("daytime-communication", "Communication") 
+								| replace("daytime-none", "None of these apply to me") }}
+							</li>
+						{% endfor %}
+					</ul>
+				</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('daytime-activities') }}
+				</dd>
+			</div>
+			{% if data['daytime-activities'] != "daytime-none" %}
+				<div class="govuk-summary-list__row difficulties-start-date-daytime">
+					<dt class="govuk-summary-list__key">
+						When you started to experience difficulties
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{% if data['difficulties-start-date-daytime-day'] %}
+							{{ rewordDate(data['difficulties-start-date-daytime-day'], data['difficulties-start-date-daytime-month'], data['difficulties-start-date-daytime-year']) }}
+						{% endif %}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('difficulties-start-date-daytime') }}
+					</dd>
+				</div>
+			{% endif %}  
+		</dl>
+	</section>
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-bed") %}
+		<section class="Getting in and out of bed">
+			<h2 class="govuk-heading-m">
+				Getting in and out of bed
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row bed-day">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['getting-in-out-bed-day'] %}
+								<li>
+									{{ item 
+									| replace("physical", "I have physical difficulty when I get in and out of bed")
+									| replace("motivation", "I need encouragement or prompting to get in and out of bed") 
+									| replace("none", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('getting-in-out-bed-day') }}
+					</dd>
+				</div>
+				{% if data['getting-in-out-bed-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row ">
+						<dt class="govuk-summary-list__key">
+							Do you usually need to go back to bed during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['back-to-bed-day'] | capitalize }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('back-to-bed-day') }}
+						</dd>
+					</div>
+					{% if data['back-to-bed-day'] == "yes" %}
+            <div class="govuk-summary-list__row day-frequency">
+              <dt class="govuk-summary-list__key">
+                How many times do you do this activity again during the day?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['back-to-bed-day-times'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                {{ changeLink('back-to-bed-day') }}
+              </dd>
+            </div>
+					{% endif %}
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-washing") %}
+		<section class="Washing">
+			<h2 class="govuk-heading-m">
+				Washing
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row wash-day">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['wash-day'] %}
+								<li>
+									{{ item 
+									| replace("wash-physical", "I have physical difficulty when I wash myself")
+									| replace("wash-motivation", "I need encouragement or prompting to wash myself") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('wash-day') }}
+					</dd>
+				</div>
+				{% if data['wash-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row ">
+						<dt class="govuk-summary-list__key">
+							Do you need to wash yourself again during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['wash-again-day'] | capitalize }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('wash-again-day') }}
+						</dd>
+					</div>
+					{% if data['wash-again-day'] == "yes" %}
+            <div class="govuk-summary-list__row day-frequency">
+              <dt class="govuk-summary-list__key">
+                How many times do you do this activity again during the day?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['wash-frequency'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                {{ changeLink('wash-again-day') }}
+              </dd>
+            </div>
+					{% endif %}
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-dressing") %}
+		<section class="Dressing">
+			<h2 class="govuk-heading-m">
+				Dressing and undressing
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row dress-day">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['dress-day'] %}
+								<li>
+									{{ item 
+									| replace("dress-physical", "I have physical difficulty when I dress and undress myself")
+									| replace("dress-motivation", "I need encouragement or prompting to dress and undress myself") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('dress-day') }}
+					</dd>
+				</div>
+				{% if data['dress-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row ">
+						<dt class="govuk-summary-list__key">
+							Do you need to dress or undress yourself again during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['dress-again-day'] | capitalize }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('dress-again-day') }}
+						</dd>
+          </div>
+          {% if data['dress-again-day'] == "yes" %}
+            <div class="govuk-summary-list__row day-frequency">
+              <dt class="govuk-summary-list__key">
+                How many times do you do this activity again during the day?
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['dress-frequency'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                {{ changeLink('dress-again-day') }}
+              </dd>
+            </div>
+          {% endif %}
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-moving") %}
+		<section class="Moving around indoors">
+		<h2 class="govuk-heading-m">
+			Moving around indoors
+		</h2>
+		<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+			<div class="govuk-summary-list__row moving-day">
+				<dt class="govuk-summary-list__key">
+					The difficulty you experience
+				</dt>
+				<dd class="govuk-summary-list__value">
+					<ul class="govuk-list">
+						{% for item in data['moving-day'] %}
+							<li>
+								{{ item 
+								| replace("moving-physical", "I have physical difficulty when moving around indoors")
+								| replace("moving-motivation", "I need encouragement or prompting to move around indoors") 
+								| replace("no-other-apply", "None of these apply to me") }}
+							</li>
+						{% endfor %}
+					</ul>
+				</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('moving-day') }}
+				</dd>
+			</div>
+			{% if data['moving-day'] != "no-other-apply" %}
+				<div class="govuk-summary-list__row falling frequency">
+					<dt class="govuk-summary-list__key">
+						Are you at risk of stumbling or falling?
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['falling-frequency'] | capitalize }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('falling-frequency') }}
+					</dd>
+				</div>
+				{% if data['falling-frequency'] == "yes" %}
+          <div class="govuk-summary-list__row stumbling-falling-frequency">
+            <dt class="govuk-summary-list__key">
+              In a typical month how many times do you stumble or fall?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['frequency-falls'] }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              {{ changeLink('falling-frequency') }}
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row falls-clinic">
+            <dt class="govuk-summary-list__key">
+              Have you been referred to a falls clinic?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['falls-checkbox']
+                | replace("yes-falls", "Yes")}}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              {{ changeLink('falling-frequency') }}
+            </dd>
+          </div>
+				{% endif %}
+			{% endif %}  
+		</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-toilet") %}
+		<section class="Getting to and using the toilet">
+			<h2 class="govuk-heading-m">
+				Getting to and using the toilet
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row toilet-day">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['toilet-day'] %}
+								<li>
+									{{ item 
+									| replace("toilet-physical", "I have physical difficulty getting to or using the toilet, changing my incontinence aids or catheter")
+									| replace("toilet-motivation", "I need encouragement or prompting to get to or to use the toilet, change my incontinence aids or catheter") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('toilet-day') }}
+					</dd>
+				</div>
+				{% if data['toilet-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row day-frequency">
+						<dt class="govuk-summary-list__key">
+							How many times do you have to use the toilet, change your incontinence aids or catheter?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['toilet-again-day'] }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('toilet-again-day') }}
+						</dd>
+					</div>
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-eating") %}
+		<section class="Eating and drinking">
+		<h2 class="govuk-heading-m">
+			Eating and drinking
+		</h2>
+		<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+			<div class="govuk-summary-list__row eating-day">
+				<dt class="govuk-summary-list__key">
+					The difficulty you experience
+				</dt>
+				<dd class="govuk-summary-list__value">
+					<ul class="govuk-list">
+						{% for item in data['eating-day'] %}
+							<li>
+								{{ item 
+								| replace("eating-physical", "I have physical difficulty when I eat or drink")
+								| replace("eating-motivation", "I need encouragement or prompting to eat or drink") 
+								| replace("no-other-apply", "None of these apply to me") }}
+							</li>
+						{% endfor %}
+					</ul>
+				</dd>
+				<dd class="govuk-summary-list__actions">
+				{{ changeLink('eating-day') }}
+				</dd>
+			</div>
+			{% if data['eating-day'] != "no-other-apply" %}
+				<div class="govuk-summary-list__row day-frequency">
+					<dt class="govuk-summary-list__key">
+						How many times do you do this activity during the day?
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['eating-again-day'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('eating-again-day') }}
+					</dd>
+				</div>
+			{% endif %}  
+		</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-medication") %}
+		<section class="Eating and drinking">
+			<h2 class="govuk-heading-m">
+				Taking medication or receiving treatment
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row medication-day">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['medication-day'] %}
+								<li>
+									{{ item 
+									| replace("medication-physical", "I have physical difficulty when taking medication or receiving treatment")
+									| replace("medication-motivation", "I need encouragement or prompting to take medication or receive treatment") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('medication-day') }}
+					</dd>
+				</div>
+				{% if data['medication-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row day-frequency">
+						<dt class="govuk-summary-list__key">
+							How many times do you do this activity during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['medication-again-day'] }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('medication-again-day') }}
+						</dd>
+					</div>
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-hobbies") %}
+		<section class="Social activities">
+			<h2 class="govuk-heading-m">
+				Social activities
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row social-activities-day">
+					<dt class="govuk-summary-list__key">
+					The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['social-activities-day'] %}
+								<li>
+									{{ item 
+									| replace("social-physical", "I have physical difficulty when I take part in social activities")
+									| replace("social-motivation", "I need encouragement or prompting to take part in social activities") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('social-activities-day') }}
+					</dd>
+				</div>
+				{% if data['social-activities-day'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row day-frequency">
+						<dt class="govuk-summary-list__key">
+							How many times do you do this activity during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['social-activities-again-day'] }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('social-activities-again-day') }}
+						</dd>
+					</div>
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["daytime-activities"] and data["daytime-activities"].includes("daytime-communication") %}
+		<section class="Communication">
+			<h2 class="govuk-heading-m">
+				Communication
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row communication">
+					<dt class="govuk-summary-list__key">
+						The difficulty you experience
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['communication'] %}
+								<li>
+									{{ item 
+									| replace("communication-physical", "I have physical difficulty when I communicate with other people")
+									| replace("communication-motivation", "I need encouragement or prompting to communicate with other people") 
+									| replace("no-other-apply", "None of these apply to me") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('communication') }}
+					</dd>
+				</div>
+				{% if data['communication'] != "no-other-apply" %}
+					<div class="govuk-summary-list__row day-frequency">
+						<dt class="govuk-summary-list__key">
+							How many times do you do this activity during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['communication-again'] }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('communication-again') }}
+						</dd>
+					</div>
+				{% endif %}  
+			</dl>
+		</section>
+	{% endif %}
+	{% if data['keep-eye-on-you-choice'] %}
+		<section class="Someone to keep an eye on you">
+			<h2 class="govuk-heading-m">Someone to keep an eye on you</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row someone-to-keep-an-eye">
+					<dt class="govuk-summary-list__key">
+						Do you need someone to keep an eye on you?
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['keep-eye-on-you-choice'] | capitalize }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('keep-eye-on-you-choice') }}
+					</dd>
+				</div>
+				{% if data['keep-eye-on-you-choice'] != "no" %}
+					<div class="govuk-summary-list__row someone-to-keep-an-eye-frequency">
+						<dt class="govuk-summary-list__key">
+							Why would you need someone to keep an eye on you during the day?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							<ul class="govuk-list">
+								{% for item in data['keep-eye-on-you-why'] %}
+									<li>
+										{{ item
+										| replace("prevent-danger", "to prevent danger to myself or others")
+										| replace("common-dangers", "I am not aware of common dangers")
+										| replace("neglecting-myself", "I am at risk of neglecting myself")
+										| replace("harming-myself", "I am at risk of harming myself")
+										| replace("wander", "I may wander")
+										| replace("behaviour", "to discourage antisocial or aggressive behaviour")
+										| replace("blackouts", "fits, dizzy spells or blackouts")
+										| replace("confused", "I may get confused")
+										| replace("voices", "I may hear voices or experience thoughts that disrupt my thinking")
+										| replace("why-none", "None of these apply to me") }}
+									</li>
+								{% endfor %}
+							</ul>
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('keep-eye-on-you-why') }}
+						</dd>
+					</div>
+					<div class="govuk-summary-list__row left-alone-frequency">
+						<dt class="govuk-summary-list__key">
+							On a typical day how long can you safely be left alone?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['keep-eye-on-you-how-long']
+							| replace("less-than-one-hour", "Less than an hour")
+							| replace("more-than-one-hour", "More than an hour")
+							| replace("cannot-left-alone", "I can't be left alone") }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('keep-eye-on-you-how-long') }}
+						</dd>
+					</div>
+				{% endif %} 
+			</dl> 
+		</section>
+	{% endif %} 
+{% endmacro %}
