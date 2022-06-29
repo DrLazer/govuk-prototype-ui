@@ -1,0 +1,17 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  {{ govukInput({
+    label: {
+      text: "What is the name of the event?",
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    id: "event-name",
+    name: "event-name",
+    errorMessage: data.validation["event-name"].error,
+    value: data["event-name"]
+  }) }}
+{% endblock %}

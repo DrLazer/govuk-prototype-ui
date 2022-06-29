@@ -94,6 +94,9 @@ module.exports = (source, config, logic) => (req, res, next) => {
     logic(req);
   }
 
+  console.log('handling post request for');
+  console.log(source);
+
   handleEmptyPost(source, req);
   const isValid = handleValidation(req, res, next, source, config);
   if (!isValid) {

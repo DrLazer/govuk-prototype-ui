@@ -4,9 +4,7 @@ const {
 } = require('../../utils/controller');
 
 const config = {
-  name: urls.checkYourAnswers,
-  previous: urls.waste,
-  next: urls.claimSubmission,
+  name: urls.claimSubmission
 };
 
 module.exports = registerController(config.name, config);

@@ -4,5 +4,5 @@ module.exports = {
   waste: require('./waste'),
   whereDoYouLive: require('./where-do-you-live'),
   checkYourAnswers: require('./check-your-answers'),
-  submission: require('./submission'),
+  claimSubmission: require('./claim-submission'),
 }
