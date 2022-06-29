@@ -1,27 +1,11 @@
-{% from "../macros/validation-summary.njk" import validationSummary %}
+{% extends "layouts/layout.njk" %}
+
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "../macros/validation-summary.njk" import validationSummary %}
 {% from "../macros/phase-button.njk" import phaseButton %}
-
-{%- set assetPath = '/govuk/assets' -%}
-
-{% extends "govuk/template.njk" %}
-
-{% block head %}
-  <link rel="stylesheet" type="text/css" href="/govuk-frontend-4.0.1.min.css" />
-  <script src="/govuk-frontend-4.0.1.min.js"></script>
-{% endblock %}
 
 {% block pageTitle %}
   GOV.UK Prototype Kit - Apply for Attendance Allowance
-{% endblock %}
-
-{% block header %}
-  {{ govukHeader({
-    homepageUrl: "/",
-    serviceName: serviceName,
-    serviceUrl: "/",
-    containerClasses: "govuk-width-container"
-  }) }}
 {% endblock %}
 
 {% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
@@ -59,14 +43,5 @@
   </div>
 
   {% block postForm %}
-  {% endblock %}
-{% endblock %}
-
-{% block bodyEnd %}
-  {% block scripts %}
-    <script>
-      window.GOVUKFrontend.initAll();
-    </script>
-    {% block pageScripts %}{% endblock %}
   {% endblock %}
 {% endblock %}

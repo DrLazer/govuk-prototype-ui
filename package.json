@@ -7,9 +7,14 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
+    "dev": "npm run compile:assets && nodemon app.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "compile:sass": "sass scss:public/css",
+    "compile:js": "mkdir -p public/js && cp node_modules/govuk-frontend/govuk/all.js public/js/govuk.js",
+    "compile:images": "mkdir -p public/assets/images && cp node_modules/govuk-frontend/govuk/assets/images/* public/assets/images",
+    "compile:fonts": "mkdir -p public/assets/fonts && cp node_modules/govuk-frontend/govuk/assets/fonts/* public/assets/fonts",
+    "compile:assets": "npm-run-all --parallel compile:sass compile:js compile:images compile:fonts"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
@@ -18,7 +23,9 @@
     "express-session": "^1.17.2",
     "govuk-frontend": "4.0.1",
     "memorystore": "^1.6.7",
+    "npm-run-all": "^4.1.5",
     "nunjucks": "3.2.3",
+    "sass": "^1.53.0",
     "tsscmp": "^1.0.6"
   },
   "devDependencies": {

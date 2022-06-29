@@ -3,11 +3,11 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-  <link rel="stylesheet" type="text/css" href="css/app.css" />
+  <link rel="stylesheet" type="text/css" href="/css/app.css" />
 {% endblock %}
 
 {% block pageTitle %}
-  GOV.UK Config Driven Prototype Kit
+  GOV.UK Prototype UI
 {% endblock %}
 
 {% block bodyStart %}
@@ -42,7 +42,7 @@
 
 {% block bodyEnd %}
   {% block scripts %}
-    <script src="js/govuk.js"></script>
+    <script src="/js/govuk.js"></script>
     <script>
       window.GOVUKFrontend.initAll();
     </script>
