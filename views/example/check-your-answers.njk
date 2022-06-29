@@ -1,5 +1,79 @@
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "../macros/change-link.njk" import changeLink %}
 
-{% extends "layouts/prototype-layout.njk" %}
+{% extends "layouts/layout.njk" %}
 
-CHECK YOUR ANSWERS
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="govuk-heading-xl">Check your answers</h1>
+
+        <section>
+          <h2 class="govuk-heading-l">
+            Example service details
+          </h2>
+          <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            
+            {% if data['event-name'] %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Event name
+                </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['event-name'] }}
+                  </dd>
+                <dd class="govuk-summary-list__actions">
+                  {{ changeLink('event-name') }}
+                </dd>
+              </div>
+            {% endif %}
+
+            {% if data['where-do-you-live'] %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Where you live
+                </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['where-do-you-live'] 
+                        | replace("england", "England")
+                        | replace("scotland", "Scotland")
+                        | replace("wales", "Wales")
+                        | replace("northern-ireland", "Northern Ireland")
+                    }}
+                  </dd>
+                <dd class="govuk-summary-list__actions">
+                  {{ changeLink('where-do-you-live') }}
+                </dd>
+              </div>
+            {% endif %}
+
+            {% if data['waste'] %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Waste transported
+                </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['waste'] 
+                        | replace("carcasses", "Waste from animal carcasses")
+                        | replace("mines", "Waste from mines or quarries")
+                        | replace("farm", "Farm or agricultural waste")
+                    }}
+                  </dd>
+                <dd class="govuk-summary-list__actions">
+                  {{ changeLink('waste') }}
+                </dd>
+              </div>
+            {% endif %}
+
+          </dl>
+        </section>
+          
+        <a href="claim-submission">
+          <button class="govuk-button" data-module="govuk-button">
+            Accept and continue
+          </button>
+        </a>
+	  </div>
+	</div>
+  </div>
+{% endblock %}
